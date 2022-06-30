@@ -12,16 +12,23 @@
 
  :root {
   /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
-  --overlay-background-color: #eee;
-  --highlight-background-color: #ccc;
-  --text-color: #000;
+  --color-red: #AA1634;
+  --color-blue-dark: #0C3157;
+  --color-blue-light: #7093CC;
+  --color-white: #fff;
+  --color-gray: #666;
+  --color-black: #000;
+
+  --link-color: var(--color-white);
+  --link-hover-color: var(--color-blue-dark);
+  --background-color: var(--color-blue-dark);
+  --overlay-background-color: var(--color-white);
+  --highlight-background-color: var(--color-red);
+  --text-color: var(--color-black);
 
   /* fonts */
-  --body-font-family: 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif;
-  --heading-font-family: var(--body-font-family);
+  --body-font-family: "Barlow", "Barlow-fallback", sans-serif;
+  --heading-font-family: "EB Garamond", "EB Garamond-fallback", serif;
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */
@@ -37,19 +44,47 @@
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
 
+  /* spacing */
+  --spacing-s: 6px;
+  --spacing-m: 12px;
+  --spacing-l: 18px;
+
   /* nav height */
   --nav-height: 64px;
 
 }
 
+/* Make custom fallback fonts based on local fonts */
+@font-face {
+  font-family: "EB Garamond-fallback";
+  size-adjust: 94.25%;
+  src: local("Times New Roman");
+}
+
+@font-face {
+  font-family: "Barlow-fallback";
+  size-adjust: 96.7%;
+  src: local("Arial");
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
-  font-size: var(--body-font-size-m);
-  margin: 0;
-  font-family: var(--body-font-family);
-  line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--background-color);
   display: none;
+  height: 100vh; 
+  margin: 0;
+  background-color: var(--background-color);
+  background-image: url('/icons/flag.png'); 
+  background-attachment: fixed;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  line-height: 1.5em;
 }
 
 body.appear {
@@ -60,13 +95,17 @@ header {
   height: var(--nav-height);
 }
 
+main {
+  min-height: calc(100vh - var(--nav-height));
+}
+
 h1, h2, h3,
 h4, h5, h6 {
+  margin-top: 1em;
+  margin-bottom: .5em;
   font-family: var(--heading-font-family);
   font-weight: 600;
   line-height: 1.25;
-  margin-top: 1em;
-  margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
@@ -106,25 +145,22 @@ pre {
 }
 
 /* buttons */
-
 a.button:any-link, button {
-  font-family: var(--font-family-body);
   display: inline-block;
-  box-sizing: border-box;
-  text-decoration: none;
+  padding: 1px 20px;
   border: 2px solid transparent;
-  padding: 5px 30px;
-  text-align: center;
+  border-radius: 3px;
+  background-color: var(--link-color);
+  color: var(--background-color);
+  font-family: var(--font-family-body);
   font-style: normal; 
   font-weight: 600;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
-  color: var(--background-color);
-  background-color: var(--link-color);
-  margin: 16px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 30px;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
@@ -142,7 +178,6 @@ a.button.secondary, button.secondary {
   border: 2px solid currentcolor;
   color: var(--text-color)
 } 
-
 
 main input {
   font-size: 1.25rem;
@@ -164,6 +199,10 @@ main input:hover {
 
 main .section {
   padding: 64px 16px;
+}
+
+main .section > div {
+  background-color: var(--overlay-background-color);
 }
 
 main pre {
